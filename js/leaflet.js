@@ -11,33 +11,30 @@ navigator.geolocation.getCurrentPosition(function(position){
 
 //le slideeeeeeer************************************************
 
+var SlideTest = {
+	count : 1,														//Le counter pour modifier la valeur de 630
+	slidesT : document.getElementById("slides"),					//On cible le slides (il y a les images dedans)
+	//imgSlider : document.getElementsByClassName("img-slider"),		//On fait un tableau avec nos images dedans
+	prevBtn : document.querySelector("#prevBtn"),		//On cible nos flèches
+	nextBtn : document.querySelector("#nextBtn"),
 
-let count = 1;		//Le counter pour modifier la valeur de 630
+	moveRight : function(){
+		this.slidesT.style.transition="transform 0.4s ease-in-out";
+		this.count++;
+		this.slidesT.style.transform="translateX("+ (-630 * this.count) +"px)";
+	},
+	moveLeft : function(){
+		this.slidesT.style.transition="transform 0.4s ease-in-out";
+		this.count--;
+		this.slidesT.style.transform="translateX("+ (-630 * this.count) +"px)";
+	}
+}
 
-//On cible le slides (il y a les images dedans)
-var slides = document.getElementById("slides");
-
-//On fait un tableau avec nos images dedans
-var imgSlider = document.getElementsByClassName("img-slider");
-
-//On cible nos flèches
-const prevBtn = document.querySelector("#prevBtn");
-const nextBtn = document.querySelector("#nextBtn");
 
 // Test au clique du bouton
 
-slides.style.transform="translateX("+ (-630 * count) +"px)";
+SlideTest.slidesT.style.transform="translateX("+ (-630 * SlideTest.count) +"px)";
 
-nextBtn.addEventListener("click", function(){
-	slides.style.transition="transform 0.4s ease-in-out";
-	count++;
-	slides.style.transform="translateX("+ (-630 * count) +"px)";
-	
-});
-
-prevBtn.addEventListener("click", function(){
-	slides.style.transition="transform 0.4s ease-in-out";
-	count--;
-	slides.style.transform="translateX("+ (-630 * count) +"px)";
-});
+nextBtn.addEventListener("click", SlideTest.moveRight());
+prevBtn.addEventListener("click", SlideTest.moveLeft());
 
