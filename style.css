@@ -26,29 +26,51 @@ header h2{
 
 /*Mon slider */
 #slider{
-    width: 100%;
-    position:relative;
-}
-#slider .img-slider{
-    width:700px;
-    height: 450px;;
-    display: block;
+    width:630px;
     margin:auto;
     margin-top:10px;
-    border-radius: 4%;
+    overflow: hidden;
 }
-.fas.fa-angle-left.fa-2x{
+#slides{
+    position:relative;
+    width:100%;
+    display: flex;
+}
+#slider .img-slider{
+    border-radius: 4%; 
+    width: 630px;
+    height: 450px; 
+}
+/*Mes fleches */
+#prevBtn{
     position: absolute;
     top: 50%;
-    left: 240px;
+    left: 0px;
+    border: 1px solid white;
+    padding: 9px 20px;
+    border-radius: 50%;
+    transform: translateY(-50%);
 }
-.fas.fa-angle-right.fa-2x{
+#nextBtn{
     position: absolute;
-    top:50%;
-    right:240px;
+    top: 50%;
+    right: 0px;
+    border: 1px solid white;
+    padding: 9px 20px;
+    border-radius: 50%;
+    transform: translateY(-50%);
 }
+#prevBtn:hover,#nextBtn:hover{
+    cursor: pointer;
+    color:black;
+    background-color: white;
+}
+
+/* La carte*/
 #mappy{
     margin-top: 30px;
+    background-color:white;
+    padding-top:30px;
 }
 #map{
     width: 900px;

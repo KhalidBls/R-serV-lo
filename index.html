@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="style.css" type="text/css">
     <title>RéserVélo - Réserve ton vélo à proximité !</title>
 </head>
+
 <body>
     <header>
             <a href="index.html"><img src="img/ReserVeloLogo.png" alt="logo de RéserVélo"></a>
@@ -19,9 +20,12 @@
     </header>
 
     <section id="slider">
-        <img src="img/veloslide.jpg" alt="Une utilisatrice sur Paris" class="img-slider">
-        <i class="fas fa-angle-left fa-2x"></i>
-        <i class="fas fa-angle-right fa-2x"></i>
+        <div id="slides">
+            <img src="img/towerE.jpg" alt="image tour eiffel" class="img-slider">
+            <img src="img/veloslide.jpg" alt="Une utilisatrice sur Paris" class="img-slider">
+        </div>
+        <i class="fas fa-angle-left fa-3x" id="prevBtn"></i>
+        <i class="fas fa-angle-right fa-3x" id="nextBtn"></i>
     </section>
 
     <section id="mappy">
@@ -33,4 +37,5 @@
    crossorigin=""></script>
     <script src="js/leaflet.js"></script>
 </body>
+
 </html>
