@@ -25,7 +25,6 @@ navigator.geolocation.getCurrentPosition(function(position){
 			}
 			else {positionStation.bindPopup("<b>Indisponible</b> </br>" + stations[i].address);}
 
-			
 		}
 	});
 });
