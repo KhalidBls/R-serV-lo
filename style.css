@@ -71,10 +71,15 @@ header h2{
     margin-top: 30px;
     background-color:white;
     padding-top:30px;
+    padding-bottom: 30px;
 }
 #map{
     width: 900px;
     height: 530px;
     margin: auto;
     border-radius: 2%;
+}
+
+span{
+    margin-left: 15em;
 }
