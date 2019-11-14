@@ -1,7 +1,7 @@
 //****************le slideeeeeeer   (TEST DE L'OBJET EN JS)********************
 
 
-class SlideTest {
+class Slider {
 
 	constructor(){
 		this.count = 1;													//Le counter pour modifier la valeur de 630
