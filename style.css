@@ -72,11 +72,13 @@ header h2{
     background-color:white;
     padding-top:30px;
     padding-bottom: 30px;
+    text-align: center;
+    justify-content: flex-end;
 }
 #map{
     width: 900px;
     height: 530px;
-    margin: auto;
+    display: inline-block;
     border-radius: 2%;
 }
 
