@@ -1,44 +1,57 @@
 class Carte {
 	constructor(){
+		this.urlAPI="https://api.jcdecaux.com/vls/v1/stations?contract=cergy-pontoise&apiKey=bde09ea11fef33327232c69bebab6569d6b275fd";
+		this.mappy = document.getElementById("mappy");
+		this.carte = document.getElementById("map");
+		this.content = document.createElement("div");
 		
 
-		navigator.geolocation.getCurrentPosition(this.generateMap);
+		navigator.geolocation.getCurrentPosition(this.generateMap.bind(this));
 	}
-	
+
+
 	generateMap(position){
-		
-		var mymap=L.map('map').setView([position.coords.latitude, position.coords.longitude], 13);
-		L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',{maxZoom:20}).addTo(mymap);
 
-		ajaxGet("https://api.jcdecaux.com/vls/v1/stations?contract=cergy-pontoise&apiKey=bde09ea11fef33327232c69bebab6569d6b275fd",function(reponse)
+		this.mymap=L.map('map').setView([position.coords.latitude, position.coords.longitude], 13);
+		L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',{maxZoom:20}).addTo(this.mymap);
+
+		this.request();
+	}
+
+	request(){
+		ajaxGet(this.urlAPI,function(reponse)
 		{
-			var mappy = document.getElementById("mappy");
-			var carte = document.getElementById("map");
-			var content = document.createElement("div");
-			
-			var stations=JSON.parse(reponse); // oN CONVERTIT LA REPONSE EN OBJET js
+			this.stations=JSON.parse(reponse); // oN CONVERTIT LA REPONSE EN OBJET js
 
-			for(var i = 0;i<stations.length;i++)  // Pour chaque station de velo on met sa position sur la map
+			for(var i = 0;i<this.stations.length;i++)  // Pour chaque station de velo on met sa position sur la map
 			{
+				this.textPopup = "<b>OUVERTE</b> </br>" +this.stations[i].address  +"<br/>Places disponibles : "+this.stations[i].available_bike_stands;
+				this.textPopup+="</br> Vélos disponibles : "+this.stations[i].available_bikes;
+				this.markers = [];
+				this.coordonnees = [];
 				
-				 var positionStation= L.marker([stations[i].position.lat,stations[i].position.lng]).addTo(mymap);
+				this.coordonnees[i]=[this.stations[i].position.lat,this.stations[i].position.lng];
 
+				this.coordonnees.forEach(function(coords){
+					this.marker=L.marker(coords).addTo(this.mymap);
+					this.markers[i]=this.marker;
+				}.bind(this));
 
+				this.markers[i].bindPopup(this.textPopup);
 
-						positionStation.addEventListener("click",function(){
-							
-							carte.style.transition="transform 0.4s ease-in-out";
-							carte.style.transform="translateX(-30px)";
+				this.markers[i].addEventListener("click",function(){
 
-							mappy.style.display="flex";
-							mappy.appendChild(content);
-							content.style.width="320px";
-							content.style.backgroundColor="black";
-							content.style.borderRadius="2%";
-						});
-			}
-			
-	});
+					this.carte.style.transition="transform 0.4s ease-in-out";
+					this.carte.style.transform="translateX(-30px)";
+	
+					this.mappy.style.display="flex";
+					this.mappy.appendChild(this.content);
+					this.content.style.width="320px";
+					this.content.style.backgroundColor="black";
+					this.content.style.borderRadius="2%";
+				}.bind(this));	
+			}	
+	}.bind(this));
 	}
 	
 }
