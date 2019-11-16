@@ -25,8 +25,10 @@ class Carte {
 
 			for(var i = 0;i<this.stations.length;i++)  // Pour chaque station de velo on met sa position sur la map
 			{
-				this.textPopup = "<b>OUVERTE</b> </br>" +this.stations[i].address  +"<br/>Places disponibles : "+this.stations[i].available_bike_stands;
-				this.textPopup+="</br> Vélos disponibles : "+this.stations[i].available_bikes;
+				if(this.stations[i].status === "OPEN"){
+					this.textPopup = "<b>OUVERTE</b> </br>" +this.stations[i].address  +"<br/>Places disponibles : "+this.stations[i].available_bike_stands;
+					this.textPopup+="</br> Vélos disponibles : "+this.stations[i].available_bikes;
+				}
 				this.markers = [];
 				this.coordonnees = [];
 				
@@ -39,7 +41,10 @@ class Carte {
 
 				this.markers[i].bindPopup(this.textPopup);
 
-				this.markers[i].addEventListener("click",function(){
+				this.markers[i].addEventListener("click",function(e){
+					this.content.innerHTML=e.target._popup._content;
+					this.content.style.paddingTop="40px";
+					this.content.style.lineHeight="30px";
 
 					this.carte.style.transition="transform 0.4s ease-in-out";
 					this.carte.style.transform="translateX(-30px)";
