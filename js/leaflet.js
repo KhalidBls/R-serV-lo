@@ -4,7 +4,9 @@ class Carte {
 		this.mappy = document.getElementById("mappy");
 		this.carte = document.getElementById("map");
 		this.content = document.createElement("div");
-		
+		this.button = document.createElement("button");
+		this.button.textContent="Réservez votre vélo";
+		this.button.style.padding="5px 5px";
 
 		navigator.geolocation.getCurrentPosition(this.generateMap.bind(this));
 	}
@@ -14,7 +16,6 @@ class Carte {
 
 		this.mymap=L.map('map').setView([position.coords.latitude, position.coords.longitude], 13);
 		L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',{maxZoom:20}).addTo(this.mymap);
-
 		this.request();
 	}
 
@@ -23,10 +24,10 @@ class Carte {
 		{
 			this.stations=JSON.parse(reponse); // oN CONVERTIT LA REPONSE EN OBJET js
 
-			for(var i = 0;i<this.stations.length;i++)  // Pour chaque station de velo on met sa position sur la map
+			for(let i = 0;i<this.stations.length;i++)  // Pour chaque station de velo on met sa position sur la map
 			{
 				if(this.stations[i].status === "OPEN"){
-					this.textPopup = "<b>OUVERTE</b> </br>" +this.stations[i].address  +"<br/>Places disponibles : "+this.stations[i].available_bike_stands;
+					this.textPopup = "<b>STATION OUVERTE</b> </br>" +this.stations[i].address  +"<br/>Places disponibles : "+this.stations[i].available_bike_stands;
 					this.textPopup+="</br> Vélos disponibles : "+this.stations[i].available_bikes;
 				}
 				this.markers = [];
@@ -42,7 +43,10 @@ class Carte {
 				this.markers[i].bindPopup(this.textPopup);
 
 				this.markers[i].addEventListener("click",function(e){
-					this.content.innerHTML=e.target._popup._content;
+					this.content.innerHTML=e.target._popup._content+"<br/><br/>";
+					this.content.appendChild(this.button);
+					this.button.addEventListener("click",function(){alert("ok");});
+
 					this.content.style.paddingTop="40px";
 					this.content.style.lineHeight="30px";
 
