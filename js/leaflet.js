@@ -26,6 +26,12 @@ class Carte {
 
 			for(let i = 0;i<this.stations.length;i++)  // Pour chaque station de velo on met sa position sur la map
 			{
+
+
+				this.button[i] = document.createElement("button");
+				this.button[i].textContent="Réservez votre vélo";
+				this.button[i].style.padding="5px 5px";
+
 				if(this.stations[i].status === "OPEN"){
 					this.textPopup = "<b>STATION OUVERTE</b> </br>" +this.stations[i].address  +"<br/>Places disponibles : "+this.stations[i].available_bike_stands;
 					this.textPopup+="</br> Vélos disponibles : "+this.stations[i].available_bikes;
@@ -43,9 +49,13 @@ class Carte {
 				this.markers[i].bindPopup(this.textPopup);
 
 				this.markers[i].addEventListener("click",function(e){
+
+					
+
 					this.content.innerHTML=e.target._popup._content+"<br/><br/>";
-					this.content.appendChild(this.button);
-					this.button.addEventListener("click",function(){alert("ok");});
+					this.content.appendChild(this.button[i]);
+
+					this.button[i].addEventListener("click",function(){alert("ok");});
 
 					this.content.style.paddingTop="40px";
 					this.content.style.lineHeight="30px";
