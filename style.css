@@ -86,3 +86,12 @@ header h2{
 span{
     margin-left: 15em;
 }
+
+#content{
+    padding-top:40px;
+    line-height: 30px;
+    margin-right: 20px;
+    width:320px;
+    background-color: black;
+    border-radius: 2%;
+}
