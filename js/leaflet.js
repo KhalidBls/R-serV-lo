@@ -4,9 +4,7 @@ class Carte {
 		this.mappy = document.getElementById("mappy");
 		this.carte = document.getElementById("map");
 		this.content = document.createElement("div");
-		this.button = document.createElement("button");
-		this.button.textContent="Réservez votre vélo";
-		this.button.style.padding="5px 5px";
+		this.button=[];
 
 		navigator.geolocation.getCurrentPosition(this.generateMap.bind(this));
 	}
@@ -20,17 +18,20 @@ class Carte {
 	}
 
 	request(){
-		ajaxGet(this.urlAPI,function(reponse)
+		ajaxGet(this.urlAPI, function(reponse)
 		{
 			this.stations=JSON.parse(reponse); // oN CONVERTIT LA REPONSE EN OBJET js
 
+
+			//for(station Of this.station)
+			//Crééer un autre objet pour gerer la reservation ->afficher mon content 
+			
 			for(let i = 0;i<this.stations.length;i++)  // Pour chaque station de velo on met sa position sur la map
 			{
-
-
 				this.button[i] = document.createElement("button");
 				this.button[i].textContent="Réservez votre vélo";
 				this.button[i].style.padding="5px 5px";
+
 
 				if(this.stations[i].status === "OPEN"){
 					this.textPopup = "<b>STATION OUVERTE</b> </br>" +this.stations[i].address  +"<br/>Places disponibles : "+this.stations[i].available_bike_stands;
@@ -50,25 +51,28 @@ class Carte {
 
 				this.markers[i].addEventListener("click",function(e){
 
-					
-
 					this.content.innerHTML=e.target._popup._content+"<br/><br/>";
 					this.content.appendChild(this.button[i]);
 
-					this.button[i].addEventListener("click",function(){alert("ok");});
+					this.button[i].addEventListener("click",function(){
+						this.content.innerHTML="<b>Réservation à la station</b> <br/>" + this.stations[i].address;
+					}.bind(this));
 
+
+					//METTRE DANS LE CSS
 					this.content.style.paddingTop="40px";
 					this.content.style.lineHeight="30px";
+					this.content.style.marginRight="20px"
+					this.content.style.width="320px";
+					this.content.style.backgroundColor="black";
+					this.content.style.borderRadius="2%";
 
 					this.carte.style.transition="transform 0.4s ease-in-out";
 					this.carte.style.transform="translateX(-30px)";
 	
 					this.mappy.style.display="flex";
 					this.mappy.appendChild(this.content);
-					this.content.style.width="320px";
-					this.content.style.backgroundColor="black";
-					this.content.style.borderRadius="2%";
-				}.bind(this));	
+				}.bind(this));
 			}	
 	}.bind(this));
 	}

@@ -11,12 +11,16 @@ class Slider {
 		this.nextBtn = document.getElementById("nextBtn");
 
 		this.slidesT.style.transform="translateX("+ (-630 * this.count) +"px)";
+		setInterval(this.moveRightUnlimited.bind(this),5000);
 		this.nextBtn.addEventListener("click", function(){this.moveRight()}.bind(this));
 		this.prevBtn.addEventListener("click", function(){this.moveLeft()}.bind(this));
 		this.slidesT.addEventListener("transitionend",function(){this.infinite()}.bind(this)); // faire un slider "illimités"
 	}
 
-
+	moveRightUnlimited(){
+		this.moveRight();
+		this.slidesT.addEventListener("transitionend",function(){this.infinite()}.bind(this));
+	}
 
 	moveRight(){
 		this.slidesT.style.transition="transform 0.4s ease-in-out";
