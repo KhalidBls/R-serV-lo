@@ -43,7 +43,6 @@ class Marker {
     clickButton(stations){
         this.content.innerHTML = "<b>Réservation</b><br>"+stations.address;
         this.content.innerHTML+="<br>Vélos disponibles : "+stations.available_bikes;
-
     }
 
 }
