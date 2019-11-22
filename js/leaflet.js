@@ -2,14 +2,11 @@ class Carte {
 	constructor(){
 		this.urlAPI="https://api.jcdecaux.com/vls/v1/stations?contract=cergy-pontoise&apiKey=bde09ea11fef33327232c69bebab6569d6b275fd";
 		this.marker=[];
-		this.button=[];
 
 		navigator.geolocation.getCurrentPosition(this.generateMap.bind(this));
 	}
 
-
 	generateMap(position){
-
 		this.mymap=L.map('map').setView([position.coords.latitude, position.coords.longitude], 13);
 		L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',{maxZoom:20}).addTo(this.mymap);
 		this.request();
@@ -25,6 +22,7 @@ class Carte {
 				this.marker[i]=L.marker(monMarker.coordMarker()).addTo(this.mymap);
 				this.marker[i].addEventListener("click",function(){monMarker.information(this.stations[i])}.bind(this));
 			}	
-	}.bind(this));
+		}.bind(this));
 	}
+	
 }
