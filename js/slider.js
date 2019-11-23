@@ -23,12 +23,14 @@ class Slider {
 	}
 
 	moveRight(){
-		this.slidesT.style.transition="transform 0.4s ease-in-out";
+		if(this.count >= this.imgSlider.length - 1)return;
+		this.slidesT.style.transition="transform 0.8s ease-in-out";
 		this.count++;
 		this.slidesT.style.transform="translateX("+ (-630 * this.count) +"px)";
 	}
 	moveLeft(){
-		this.slidesT.style.transition="transform 0.4s ease-in-out";
+		if(this.count <= 0)return;
+		this.slidesT.style.transition="transform 0.8s ease-in-out";
 		this.count--;
 		this.slidesT.style.transform="translateX("+ (-630 * this.count) +"px)";
 	}
