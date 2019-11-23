@@ -30,9 +30,11 @@ class Marker {
         this.content.innerHTML="<b>STATION OUVERTE</b><br>"+"<p>"+stations.address+"</p>";
         this.content.innerHTML+="<p>"+"Places disponibles : "+stations.available_bike_stands;
         this.content.innerHTML+="Vélos disponibles : "+stations.available_bikes+"</p>"
-        this.content.appendChild(this.button);
         this.mappy.appendChild(this.content);
-        this.button.addEventListener("click",function(){this.clickButton(stations)}.bind(this));
+        if(stations.available_bikes>0){
+            this.content.appendChild(this.button);
+            this.button.addEventListener("click",function(){this.clickButton(stations)}.bind(this));
+        }
     }
 
     informationFermee(stations){
@@ -42,7 +44,7 @@ class Marker {
 
     clickButton(stations){
         this.content.innerHTML = "<b>Réservation</b><br>"+stations.address;
-        this.content.innerHTML+="<br>Vélos disponibles : "+stations.available_bikes;
+        this.content.innerHTML+="<br>Vélos disponibles : "+stations.available_bikes+"<br>";
     }
 
 }
