@@ -9,6 +9,7 @@ class Carte {
 	generateMap(position){
 		this.mymap=L.map('map').setView([position.coords.latitude, position.coords.longitude], 13);
 		L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',{maxZoom:20}).addTo(this.mymap);
+		L.circle([position.coords.latitude, position.coords.longitude], {radius: 150}).addTo(this.mymap);
 		this.request();
 	}
 

@@ -9,21 +9,34 @@ class Slider {
 		this.imgSlider = document.getElementsByClassName("img-slider");		//On fait un tableau avec nos images dedans
 		this.prevBtn = document.getElementById("prevBtn");	//On cible nos flèches
 		this.nextBtn = document.getElementById("nextBtn");
+		this.pause = document.getElementById("pause");
+		this.etat = true;
 
 		this.slidesT.style.transform="translateX("+ (-630 * this.count) +"px)";
-		this.nextBtn.addEventListener("click", function(){this.moveRight()}.bind(this));
-		this.prevBtn.addEventListener("click", function(){this.moveLeft()}.bind(this));
-		this.slidesT.addEventListener("transitionend",function(){this.infinite()}.bind(this)); // faire un slider "illimités"
+		this.nextBtn.addEventListener("click", function(){this.moveRight();}.bind(this));
+		this.prevBtn.addEventListener("click", function(){this.moveLeft();}.bind(this));
+		this.slidesT.addEventListener("transitionend",function(){this.infinite();}.bind(this)); // faire un slider "illimités"
+		this.pause.addEventListener("click",function(){this.changeEtat();}.bind(this));
 		setInterval(this.moveRightUnlimited.bind(this),5000);
 	}
 
+
+	changeEtat(){
+		if(this.etat===true){
+			this.etat=false;
+		}else this.etat=true;
+	}
+
 	moveRightUnlimited(){
-		this.moveRight();
-		this.slidesT.addEventListener("transitionend",function(){this.infinite()}.bind(this));
+		if(this.etat===true)
+		{
+			this.moveRight();
+			this.slidesT.addEventListener("transitionend",function(){this.infinite()}.bind(this));
+		}
 	}
 
 	moveRight(){
-		if(this.count >= this.imgSlider.length - 1)return;
+		if(this.count >= this.imgSlider.length - 1) return;
 		this.slidesT.style.transition="transform 0.8s ease-in-out";
 		this.count++;
 		this.slidesT.style.transform="translateX("+ (-630 * this.count) +"px)";
