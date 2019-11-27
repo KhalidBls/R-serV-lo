@@ -44,12 +44,12 @@ class Marker {
 
     clickButton(stations){
         this.content.innerHTML = "<b>Réservation</b><br>"+stations.address;
-        this.content.innerHTML+="<br>Vélos disponibles : "+stations.available_bikes+"<br><br><br>";
+        this.content.innerHTML+="<br>Vélos disponibles : "+stations.available_bikes+"<br><br>";
         var personne = new Personne();
         this.content.appendChild(personne.prenom);
         this.content.appendChild(personne.nom);
         this.content.innerHTML+="<br><br>Signature : <br>";
-        this.content.appendChild(personne.signature);
+        this.content.appendChild(personne.canvas);
     }
 
 }
