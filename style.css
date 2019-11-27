@@ -119,9 +119,15 @@ span{
     border-radius: 7px;
 }
 
+button{
+    padding: 5px;
+    border: none;
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 canvas{
-    width:200px;
-    height:120px;
     border:2px solid #999;
     background-color:#fff;
 }
