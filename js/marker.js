@@ -6,6 +6,13 @@ class Marker {
         this.mappy = document.getElementById("mappy");
         this.content = document.createElement("div");
         this.content.id = "content";
+        this.timer=document.createElement("p");
+        this.monStockageL = localStorage;
+        this.monStockageS = sessionStorage;
+
+        this.infoBlock = document.createElement("div");
+        this.infoBlock.id = "infoBlock";
+        
     }
 
     coordMarker(){
@@ -50,6 +57,46 @@ class Marker {
         this.content.appendChild(personne.nom);
         this.content.innerHTML+="<br><br>Signature : <br>";
         this.content.appendChild(personne.canvas);
+        this.content.appendChild(personne.finalButton);
+        personne.finalButton.addEventListener("click",function(){this.infoReservation(stations)}.bind(this));
+        if(this.monStockageL) this.preremplir();
     }
 
+    infoReservation(stations){
+        var prenom = document.querySelectorAll("input")[0].value;
+        var nom = document.querySelectorAll("input")[1].value;
+
+        this.monStockageL.setItem('prenom',prenom);
+        this.monStockageL.setItem('nom',nom);
+
+        this.minute=20;
+        this.sec=0;
+        this.timer.innerText = this.minute + "min " + this.sec + "s";
+
+        document.body.insertBefore(this.infoBlock,document.querySelector("footer"));
+        this.infoBlock.innerHTML = "<b>Votre Réservation</b><br>"
+        this.infoBlock.innerHTML += "Vélo Réservé à la station "+ stations.address;
+        this.infoBlock.innerHTML += " au nom de " + "<b>"+prenom + " " + nom +"</b>";
+        this.infoBlock.innerHTML +="<br><b>Temps restants: </b><br>";
+        this.infoBlock.appendChild(this.timer);
+        this.chrono();
+    }
+
+    chrono(){
+        var duree = 1200;
+        setInterval(function(){
+            if(duree===0){this.timer.innerText="C'est terminé ";}
+            this.minute=Math.floor(duree/60);
+            this.sec=Math.floor(duree%60);
+            duree--;
+            this.timer.innerText = this.minute + "min " + this.sec + "s";
+        }.bind(this),1000);
+
+    }
+
+    preremplir(){
+        document.querySelectorAll("input")[0].value = this.monStockageL.getItem('prenom');
+        document.querySelectorAll("input")[1].value = this.monStockageL.getItem('nom');
+    }
+    
 }

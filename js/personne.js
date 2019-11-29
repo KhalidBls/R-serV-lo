@@ -1,8 +1,10 @@
 class Personne {
+
     constructor(){
         this.prenom = document.createElement("input");
         this.nom = document.createElement("input");
-
+        this.finalButton = document.createElement("button");
+        this.finalButton.textContent="Valider";
         this.canvas = document.createElement("canvas");
         this.ctx = this.canvas.getContext("2d");
         this.ecrire = false;
@@ -27,7 +29,6 @@ class Personne {
         this.canvas.width = 200;
         this.canvas.height = 120;
 
-        //serie de test
         this.canvas.addEventListener("mousedown",function(e){this.startPosition(e);}.bind(this));
         this.canvas.addEventListener("mouseup",function(){this.endPosition();}.bind(this));
         this.canvas.addEventListener("mousemove",function(e){this.dessine(e);}.bind(this));

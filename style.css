@@ -111,6 +111,17 @@ span{
     background-color: black;
     border-radius: 2%;
   }
+  #infoBlock {
+    line-height: 30px;
+    margin-right: 20px;
+    width: 40%;
+    margin-left: 15%;
+    margin-top: 1%;
+    background-color: #ffffff;
+    color:black;
+    border-radius: 2%;
+    text-align: center;
+}
   
 #mappy #content input{
     padding: 5px;
@@ -125,6 +136,9 @@ button{
     border: solid 1px #ccc;
     border-radius: 10px;
     cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 canvas{
@@ -132,3 +146,6 @@ canvas{
     background-color:#fff;
 }
   
+footer{
+    margin-top: 5px;
+}
