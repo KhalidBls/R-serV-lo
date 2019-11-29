@@ -63,6 +63,8 @@ class Marker {
     }
 
     infoReservation(stations){
+        clearInterval(this.decompte);
+        this.monStockageS.clear();
         var prenom = document.querySelectorAll("input")[0].value;
         var nom = document.querySelectorAll("input")[1].value;
 
@@ -74,7 +76,6 @@ class Marker {
         this.timer.innerText = this.minute + "min " + this.sec + "s";
 
         if(this.infoBlock) document.body.removeChild(document.body.querySelector("#infoBlock"));
-        this.monStockageS.clear();
         document.body.insertBefore(this.infoBlock,document.querySelector("footer"));
         this.infoBlock.innerHTML = "<b>Votre Réservation</b><br>"
         this.infoBlock.innerHTML += "Vélo Réservé à la station "+ stations.address;
@@ -88,9 +89,9 @@ class Marker {
 
     chrono(duree){
         
-        setInterval(function(){
-            if(duree<=0){this.monStockageS.setItem('statusReservation','false')}
-            if(duree>0){this.monStockageS.setItem('statusReservation','true');};
+        this.decompte = setInterval(function(){
+            if(duree<=0){this.monStockageS.setItem('statusReservation','false');}
+            if(duree>0){this.monStockageS.setItem('statusReservation','true');}
             this.minute=Math.floor(duree/60);
             this.sec=Math.floor(duree%60);
             duree--;
