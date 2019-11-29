@@ -36,10 +36,13 @@ header h2{
     width:100%;
     display: flex;
 }
-#slider .img-slider{
+#slider img{
     border-radius: 4%; 
     width: 630px;
     height: 450px; 
+}
+figure{
+    margin:0;
 }
 /*Mes fleches */
 #prevBtn{
