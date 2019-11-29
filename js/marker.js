@@ -11,8 +11,8 @@ class Marker {
         this.monStockageS = sessionStorage;
 
         this.infoBlock = document.createElement("div");
-        this.infoBlock.id = "infoBlock";
-        
+        this.infoBlock.id = "infoBlock"; 
+        this.test();
     }
 
     coordMarker(){
@@ -73,25 +73,29 @@ class Marker {
         this.sec=0;
         this.timer.innerText = this.minute + "min " + this.sec + "s";
 
+        if(this.infoBlock) document.body.removeChild(document.body.querySelector("#infoBlock"));
         document.body.insertBefore(this.infoBlock,document.querySelector("footer"));
         this.infoBlock.innerHTML = "<b>Votre Réservation</b><br>"
         this.infoBlock.innerHTML += "Vélo Réservé à la station "+ stations.address;
         this.infoBlock.innerHTML += " au nom de " + "<b>"+prenom + " " + nom +"</b>";
         this.infoBlock.innerHTML +="<br><b>Temps restants: </b><br>";
         this.infoBlock.appendChild(this.timer);
-        this.chrono();
+        this.chrono(1200);
+
+        this.monStockageS.setItem('address',stations.address);
     }
 
-    chrono(){
-        var duree = 1200;
+    chrono(duree){
+        
         setInterval(function(){
-            if(duree===0){this.timer.innerText="C'est terminé ";}
+            if(duree<=0){this.monStockageS.setItem('statusReservation','false')}
+            if(duree>0){this.monStockageS.setItem('statusReservation','true');};
             this.minute=Math.floor(duree/60);
             this.sec=Math.floor(duree%60);
             duree--;
             this.timer.innerText = this.minute + "min " + this.sec + "s";
+            this.monStockageS.setItem('duree',duree);
         }.bind(this),1000);
-
     }
 
     preremplir(){
@@ -99,4 +103,17 @@ class Marker {
         document.querySelectorAll("input")[1].value = this.monStockageL.getItem('nom');
     }
     
+    test(){
+        if(this.monStockageS.getItem('duree')<1200 && this.monStockageS.getItem('statusReservation')==='true' && !document.querySelector("#infoBlock"))
+        {
+            document.body.insertBefore(this.infoBlock,document.querySelector("footer"));
+            this.infoBlock.innerHTML = "<b>Votre Réservation</b><br>"
+            this.infoBlock.innerHTML += "Vélo Réservé à la station "+ this.monStockageS.getItem('address');
+            this.infoBlock.innerHTML += " au nom de " + "<b>"+this.monStockageL.getItem('prenom')+ " " + this.monStockageL.getItem('nom') +"</b>";
+            this.infoBlock.innerHTML +="<br><b>Temps restants: </b><br>";
+            this.infoBlock.appendChild(this.timer);
+            this.chrono(this.monStockageS.getItem('duree'));
+        }
+    }
+
 }
