@@ -75,7 +75,7 @@ class Marker {
         this.sec=0;
         this.timer.innerText = this.minute + "min " + this.sec + "s";
 
-        if(this.infoBlock) document.body.removeChild(document.body.querySelector("#infoBlock"));
+        if(document.body.querySelector("#infoBlock")) document.body.removeChild(document.body.querySelector("#infoBlock"));
         document.body.insertBefore(this.infoBlock,document.querySelector("footer"));
         this.infoBlock.innerHTML = "<b>Votre Réservation</b><br>"
         this.infoBlock.innerHTML += "Vélo Réservé à la station "+ stations.address;
