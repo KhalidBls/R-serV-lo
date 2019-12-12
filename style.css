@@ -39,7 +39,7 @@ header h2{
 #slider img{
     border-radius: 4%; 
     width: 630px;
-    height: 450px; 
+    height: auto; 
 }
 figure{
     margin:0;
