@@ -57,4 +57,4 @@ class Marker {
         if(this.reservation.monStockageL) this.reservation.preremplir();
     }
 } 
-//METTRE LES CLASSE DU CHRONOS DANS UNE CLASSE A PART
+
