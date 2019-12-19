@@ -16,12 +16,13 @@ class Reservation {
         
         this.decompte = setInterval(function(){
             if(duree<=0){this.monStockageS.setItem('statusReservation','false');}
-            else{this.monStockageS.setItem('statusReservation','true');}
+            else{this.monStockageS.setItem('statusReservation','true')
             this.minute=Math.floor(duree/60);
             this.sec=Math.floor(duree%60);
             duree--;
             this.timer.innerText = this.minute + "min " + this.sec + "s";
             this.monStockageS.setItem('duree',duree);
+        }
         }.bind(this),1000);
     }
 
@@ -45,13 +46,15 @@ class Reservation {
         this.infoBlock.innerHTML += " au nom de " + "<b>"+prenom + " " + nom +"</b>";
         this.infoBlock.innerHTML +="<br><b>Temps restants: </b><br>";
         this.infoBlock.appendChild(this.timer);
-        this.chrono(1200);
+        this.dateFin = (Date.now()/1000)+1200;
+
+        this.chrono(this.dateFin-(Date.now()/1000));
 
         this.monStockageS.setItem('address',stations.address);
     }
 
     test(){ //
-        if(this.monStockageS.getItem('duree')<1200 && this.monStockageS.getItem('statusReservation')==='true' && !document.querySelector("#infoBlock"))
+        if(this.monStockageS.getItem('duree')<1200  && this.monStockageS.getItem('statusReservation')==='true' && !document.querySelector("#infoBlock"))
         {
             document.body.insertBefore(this.infoBlock,document.querySelector("footer"));
             this.infoBlock.innerHTML = "<b>Votre Réservation</b><br>"

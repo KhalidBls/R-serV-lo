@@ -6,7 +6,8 @@ class Marker {
         this.mappy = document.getElementById("mappy");
         this.content = document.createElement("div");
         this.content.id = "content";
- 
+        
+        this.personne = new Personne();
         this.reservation = new Reservation();
     }
 
@@ -47,13 +48,13 @@ class Marker {
     clickButton(stations){
         this.content.innerHTML = "<b>Réservation</b><br>"+stations.address;
         this.content.innerHTML+="<br>Vélos disponibles : "+stations.available_bikes+"<br><br>";
-        var personne = new Personne();
-        this.content.appendChild(personne.prenom);
-        this.content.appendChild(personne.nom);
+        
+        this.content.appendChild(this.personne.prenom);
+        this.content.appendChild(this.personne.nom);
         this.content.innerHTML+="<br><br>Signature : <br>";
-        this.content.appendChild(personne.canvas);
-        this.content.appendChild(personne.finalButton);
-        personne.finalButton.addEventListener("click",function(){this.reservation.infoReservation(stations)}.bind(this));
+        this.content.appendChild(this.personne.canvas);
+        this.content.appendChild(this.personne.finalButton);
+        this.personne.finalButton.addEventListener("click",function(){this.reservation.infoReservation(stations)}.bind(this));
         if(this.reservation.monStockageL) this.reservation.preremplir();
     }
 } 

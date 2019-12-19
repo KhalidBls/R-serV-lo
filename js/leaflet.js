@@ -2,7 +2,6 @@ class Carte {
 	constructor(){
 		this.urlAPI="https://api.jcdecaux.com/vls/v1/stations?contract=cergy-pontoise&apiKey=bde09ea11fef33327232c69bebab6569d6b275fd";
 		this.marker=[];
-
 		navigator.geolocation.getCurrentPosition(this.generateMap.bind(this));
 	}
 
